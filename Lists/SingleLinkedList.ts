@@ -98,10 +98,10 @@ export class SingleLinkedList<T> implements List<T> {
       temp = temp.next;
     }
   }
-  includes(val: T): boolean {
+  includes(val: T, equal: (a: T, b: T) => boolean): boolean {
     let temp = this.#root;
     while (temp?.next != null) {
-      if (temp.val === val) return true;
+      if (equal(temp.val, val)) return true;
       temp = temp.next;
     }
     return false;
