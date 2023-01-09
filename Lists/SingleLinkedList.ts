@@ -18,6 +18,15 @@ export class SingleLinkedList<T> implements List<T> {
     this.#root = null;
     this.#tail = null;
   }
+  get(index: number): T {
+    if (index >= this.#size || index < 0) throw new Error("Invalid index");
+    let temp = this.#root;
+    while (index > 0) {
+      temp = temp.next;
+      index--;
+    }
+    return temp.val;
+  }
   remove(index: number): T {
     if (index >= this.#size || index < 0) throw new Error("Invalid index");
     let temp = this.#root;

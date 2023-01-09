@@ -5,4 +5,5 @@ export interface List<T> {
   toString(): string;
   forEach(cb: (item: T) => void): void;
   remove(index: number): T;
+  get(index: number): T;
 }
