@@ -1,46 +1,24 @@
-import { Tree, BinaryTreeNode } from "./Tree";
+import { BinaryTree, BinaryTreeNode } from "./BinaryTree";
+import { Tree } from "./Tree";
 
-export class BinarySeachTree<T> implements Tree<T> {
+export class BinarySeachTree<T> extends BinaryTree<T> implements Tree<T> {
   #compare: (a: T, b: T) => number;
   #root: BinaryTreeNode<T> | null;
   #size: number;
   constructor(compare: (a: T, b: T) => number) {
+    super();
     this.#compare = compare;
     this.#root = null;
     this.#size = 0;
   }
   preOrder(): T[] {
-    return this.#preOrder(this.#root);
-  }
-  #preOrder(node: BinaryTreeNode<T> | null): T[] {
-    if (node == null) return [];
-    let arr: T[] = [];
-    arr.push(node.val);
-    arr.push(...this.#inOrder(node.left));
-    arr.push(...this.#inOrder(node.right));
-    return arr;
+    return super.preOrder(this.#root);
   }
   postOrder(): T[] {
-    return this.#postOrder(this.#root);
-  }
-  #postOrder(node: BinaryTreeNode<T> | null): T[] {
-    if (node == null) return [];
-    let arr: T[] = [];
-    arr.push(...this.#inOrder(node.left));
-    arr.push(...this.#inOrder(node.right));
-    arr.push(node.val);
-    return arr;
+    return super.postOrder(this.#root);
   }
   inOrder(): T[] {
-    return this.#inOrder(this.#root);
-  }
-  #inOrder(node: BinaryTreeNode<T> | null): T[] {
-    if (node == null) return [];
-    let arr: T[] = [];
-    arr.push(...this.#inOrder(node.left));
-    arr.push(node.val);
-    arr.push(...this.#inOrder(node.right));
-    return arr;
+    return super.inOrder(this.#root);
   }
   insert(val: T): boolean {
     const node = new BinaryTreeNode<T>(val);
