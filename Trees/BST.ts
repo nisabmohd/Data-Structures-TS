@@ -11,14 +11,14 @@ export class BinarySeachTree<T> extends BinaryTree<T> implements Tree<T> {
     this.#root = null;
     this.#size = 0;
   }
-  preOrder(): T[] {
-    return super.preOrder(this.#root);
+  get inorder(): T[] {
+    return super.inOrder(this.#root);
   }
-  postOrder(): T[] {
+  get postorder(): T[] {
     return super.postOrder(this.#root);
   }
-  inOrder(): T[] {
-    return super.inOrder(this.#root);
+  get preorder(): T[] {
+    return super.preOrder(this.#root);
   }
   insert(val: T): boolean {
     const node = new BinaryTreeNode<T>(val);
@@ -44,19 +44,15 @@ export class BinarySeachTree<T> extends BinaryTree<T> implements Tree<T> {
   remove(val: T): T {
     throw new Error("Method not implemented.");
   }
-  includes(val: T, equal: (a: T, b: T) => boolean): boolean {
-    return this.#includes(val, this.#root, equal);
+  includes(comparator: (a: T) => boolean): boolean {
+    return this.#includes(this.#root, comparator);
   }
-  #includes(
-    val: T,
-    node: BinaryTreeNode<T> | null,
-    equal: (a: T, b: T) => boolean
-  ) {
+  #includes(node: BinaryTreeNode<T>, comparator: (a: T) => boolean): boolean {
     if (node == null) return false;
-    if (equal(node.val, val)) return true;
+    if (comparator(node.val)) return true;
     return (
-      this.#includes(val, node.left, equal) ||
-      this.#includes(val, node.right, equal)
+      this.#includes(node.left, comparator) ||
+      this.#includes(node.right, comparator)
     );
   }
 }

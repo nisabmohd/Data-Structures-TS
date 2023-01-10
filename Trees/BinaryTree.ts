@@ -52,3 +52,5 @@ node2.left = node5;
 const binaryTree = new BinaryTree<typeof root.val>();
 
 console.log(binaryTree.inOrder(root));
+console.log(binaryTree.postOrder(root));
+console.log(binaryTree.preOrder(root));
