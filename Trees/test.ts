@@ -11,3 +11,4 @@ console.log(bst.includes((a) => a == 5));
 console.log(bst.inorder);
 console.log(bst.preorder);
 console.log(bst.postorder);
+console.log(bst.size);

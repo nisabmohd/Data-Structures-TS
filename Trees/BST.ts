@@ -11,6 +11,9 @@ export class BinarySeachTree<T> extends BinaryTree<T> implements Tree<T> {
     this.#root = null;
     this.#size = 0;
   }
+  get size(): number {
+    return this.#size;
+  }
   get inorder(): T[] {
     return super.inOrder(this.#root);
   }

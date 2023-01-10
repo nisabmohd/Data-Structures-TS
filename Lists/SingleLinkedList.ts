@@ -45,7 +45,7 @@ export class SingleLinkedList<T> implements List<T> {
     this.#size--;
     return t;
   }
-  size(): number {
+  get size(): number {
     return this.#size;
   }
   add(val: T, index?: number): boolean {

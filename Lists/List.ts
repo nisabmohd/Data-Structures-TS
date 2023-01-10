@@ -1,5 +1,5 @@
 export interface List<T> {
-  size(): number;
+  readonly size: number;
   add(val: T, index?: number): boolean;
   includes(comparator: (a: T) => boolean): boolean;
   toString(): string;
