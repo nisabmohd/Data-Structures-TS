@@ -22,12 +22,17 @@ export class Map_<K, V> implements Map__<K, V> {
   #hashCode(key: K): number {
     return JSON.stringify(key).length % this.#bucket.length;
   }
-  #equals(a: K, b: K): boolean {
-    return a === b;
-  }
-  constructor() {
+  #equals: (a: K, b: K) => boolean;
+  constructor(equals?: (a: K, b: K) => boolean) {
     this.#bucket = new Array(17).fill(null);
     this.#size = 0;
+    if (equals) {
+      this.#equals = equals;
+    } else {
+      this.#equals = (a: K, b: K): boolean => {
+        return a === b;
+      };
+    }
   }
   clear(): void {
     this.#bucket = new Array(17).fill(null);
