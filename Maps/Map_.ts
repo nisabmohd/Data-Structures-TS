@@ -61,7 +61,6 @@ export class Map_<K, V> implements Map__<K, V> {
   }
   set(key: K, value: V): void {
     const hash: number = this.#hashCode(key);
-    console.log("set ", hash);
     if (this.#bucket[hash] == null) {
       this.#bucket[hash] = [new Bucket<K, V>(key, value)];
       return;
@@ -76,8 +75,6 @@ export class Map_<K, V> implements Map__<K, V> {
   }
   delete(key: K): boolean {
     const hash: number = this.#hashCode(key);
-    console.log("delete ", hash);
-
     if (this.#bucket[hash] == null) return false;
     const prevSize = this.#bucket[hash].length;
     this.#bucket[hash] = this.#bucket[hash].filter(
@@ -86,7 +83,14 @@ export class Map_<K, V> implements Map__<K, V> {
     return prevSize - this.#bucket[hash].length == 1;
   }
   has(key: K): boolean {
-    return this.get(key) != undefined;
+    const hash: number = this.#hashCode(key);
+    if (this.#bucket[hash] == null) {
+      return false;
+    }
+    return (
+      this.#bucket[hash].filter((item) => this.#equals(item.key, key)).length !=
+      0
+    );
   }
   get size(): number {
     return this.#size;
