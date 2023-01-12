@@ -29,7 +29,12 @@ export class Heap<T> implements Heaps<T> {
     }
     return this.size - prevSize == 1;
   }
-  poll(): T {
+  poll(): T | undefined {
+    if (this.list.length == 1) return undefined;
+    if (this.list.length == 2) {
+      let deleted = this.list.pop();
+      return deleted;
+    }
     let [first, deleted, ...rest] = this.list;
     let lastElem = rest.pop();
     this.list = [first, lastElem, ...rest];
