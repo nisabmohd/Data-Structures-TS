@@ -1,6 +1,6 @@
 interface Heaps<T> {
   add(val: T): boolean;
-  poll(): T;
+  extract(): T | undefined;
   peek(): T | undefined;
   readonly size: number;
 }
@@ -29,7 +29,7 @@ export class Heap<T> implements Heaps<T> {
     }
     return this.size - prevSize == 1;
   }
-  poll(): T | undefined {
+  extract(): T | undefined {
     if (this.list.length == 1) return undefined;
     if (this.list.length == 2) {
       let deleted = this.list.pop();

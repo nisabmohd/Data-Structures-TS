@@ -11,14 +11,8 @@ heap.add(121);
 console.log(heap.peek());
 
 // console.log(heap.size);
-console.log(heap.poll());
-console.log(heap.poll());
-console.log(heap.poll());
-console.log(heap.poll());
-console.log(heap.poll());
-console.log(heap.poll());
-console.log(heap.poll());
-console.log(heap.poll());
+console.log(heap.extract());
+console.log(heap.extract());
 console.log(heap.peek());
 
 console.log(heap.size);
