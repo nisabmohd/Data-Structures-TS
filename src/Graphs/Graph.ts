@@ -1,10 +1,4 @@
-interface Graphs<T> {
-  add: (a: T, b?: T) => void; // b can be null! if there is a single vertex is disconnected to all
-  bfs: (source?: T) => T[][] | T[]; // source for traverse through a component
-  dfs: (source?: T) => T[][] | T[]; // source for traverse through a component
-}
-
-export class Graph<T> implements Graphs<T> {
+export class Graph<T> {
   private adjMap: Map<T, T[]>;
   private bidirectional: boolean;
   constructor(bidirectional?: boolean) {
@@ -25,10 +19,10 @@ export class Graph<T> implements Graphs<T> {
       this.adjMap.set(b, []);
     }
     if (this.bidirectional) {
-      this.adjMap.get(a).push(b);
-      this.adjMap.get(b).push(a);
+      this.adjMap.get(a)!.push(b);
+      this.adjMap.get(b)!.push(a);
     } else {
-      this.adjMap.get(a).push(b);
+      this.adjMap.get(a)!.push(b);
     }
   };
   bfs = (source?: T): T[][] | T[] => {
@@ -48,8 +42,8 @@ export class Graph<T> implements Graphs<T> {
     vis.add(source);
     while (queue.length != 0) {
       let popped = queue.shift();
-      ans.push(popped);
-      this.adjMap.get(popped).forEach((item) => {
+      ans.push(popped!);
+      this.adjMap.get(popped!)!.forEach((item) => {
         if (!vis.has(item)) {
           vis.add(item);
           queue.push(item);
@@ -74,7 +68,7 @@ export class Graph<T> implements Graphs<T> {
   private dfsHelper(source: T, vis: Set<T>): T[] {
     vis.add(source);
     let arr: T[] = [source];
-    this.adjMap.get(source).forEach((item) => {
+    this.adjMap.get(source)!.forEach((item) => {
       if (!vis.has(item)) {
         arr.push(...this.dfsHelper(item, vis));
       }

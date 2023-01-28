@@ -1,11 +1,3 @@
-interface Tries {
-  add(word: string): boolean;
-  delete(word: string): void;
-  contains(word: string): boolean;
-  clear(): void;
-  startsWith(prefix: string): boolean;
-}
-
 class TrieNode {
   map: Map<string, TrieNode>;
   isEndOfWord: boolean;
@@ -15,7 +7,7 @@ class TrieNode {
   }
 }
 
-export class Trie implements Tries {
+export class Trie {
   private root: TrieNode;
   constructor() {
     this.root = new TrieNode();
@@ -26,7 +18,7 @@ export class Trie implements Tries {
       if (!temp.map.has(word.charAt(i))) {
         temp.map.set(word.charAt(i), new TrieNode());
       }
-      temp = temp.map.get(word.charAt(i));
+      temp = temp.map.get(word.charAt(i))!;
     }
     temp.isEndOfWord = true;
     return temp.isEndOfWord;
@@ -35,27 +27,19 @@ export class Trie implements Tries {
     let temp: TrieNode = this.root;
     for (let i = 0; i < word.length; i++) {
       if (!temp.map.has(word.charAt(i))) return;
-      temp = temp.map.get(word.charAt(i));
+      temp = temp.map.get(word.charAt(i))!;
     }
     temp.isEndOfWord = false;
   }
   contains(word: string): boolean {
     let temp: TrieNode = this.root;
     for (let i = 0; i < word.length; i++) {
-      if (!temp.map.has(word.charAt(i))) return false;
-      temp = temp.map.get(word.charAt(i));
+      if (!temp!.map.has(word.charAt(i))) return false;
+      temp = temp!.map.get(word.charAt(i))!;
     }
-    return temp.isEndOfWord;
+    return temp!.isEndOfWord;
   }
   clear(): void {
     this.root = new TrieNode();
-  }
-  startsWith(prefix: string): boolean {
-    let temp: TrieNode = this.root;
-    for (let i = 0; i < prefix.length; i++) {
-      if (!temp.map.has(prefix.charAt(i))) return false;
-      temp = temp.map.get(prefix.charAt(i));
-    }
-    return true;
   }
 }

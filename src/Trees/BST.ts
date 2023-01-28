@@ -1,7 +1,6 @@
 import { BinaryTree, BinaryTreeNode } from "./BinaryTree";
-import { Tree } from "./Tree";
 
-export class BinarySeachTree<T> extends BinaryTree<T> implements Tree<T> {
+export class BinarySeachTree<T> extends BinaryTree<T> {
   #compare: (a: T, b: T) => number;
   #root: BinaryTreeNode<T> | null;
   #size: number;
@@ -48,14 +47,14 @@ export class BinarySeachTree<T> extends BinaryTree<T> implements Tree<T> {
     throw new Error("Method not implemented.");
   }
   includes(comparator: (a: T) => boolean): boolean {
-    return this.#includes(this.#root, comparator);
+    return this.#includes(this.#root!, comparator);
   }
   #includes(node: BinaryTreeNode<T>, comparator: (a: T) => boolean): boolean {
     if (node == null) return false;
     if (comparator(node.val)) return true;
     return (
-      this.#includes(node.left, comparator) ||
-      this.#includes(node.right, comparator)
+      this.#includes(node.left!, comparator) ||
+      this.#includes(node.right!, comparator)
     );
   }
 }

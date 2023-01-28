@@ -45,7 +45,7 @@ export class Map_<K, V> implements Map__<K, V> {
     });
   }
   get(key: K): V | undefined {
-    let val: V;
+    let val: V | undefined = undefined;
     this.#bucket.forEach((chain) => {
       if (val) return;
       if (chain != null) {

@@ -1,11 +1,4 @@
-interface Heaps<T> {
-  add(val: T): boolean;
-  extract(): T | undefined;
-  peek(): T | undefined;
-  readonly size: number;
-}
-
-export class Heap<T> implements Heaps<T> {
+export class Heap<T> {
   private list: (T | null)[];
   private comparator: (a: T, b: T) => number;
   constructor(comparator: (a: T, b: T) => number) {
@@ -19,7 +12,7 @@ export class Heap<T> implements Heaps<T> {
     let i = this.list.length - 1;
     while (i > 1) {
       let parentindex = i / 2;
-      let compare = this.comparator(this.list[i], this.list[parentindex]);
+      let compare = this.comparator(this.list[i]!, this.list[parentindex]!);
       if (compare > 1) {
         let temp = this.list[i];
         this.list[i] = this.list[parentindex];
@@ -29,7 +22,7 @@ export class Heap<T> implements Heaps<T> {
     }
     return this.size - prevSize == 1;
   }
-  extract(): T | undefined {
+  extract(): T | undefined | null {
     if (this.list.length == 1) return undefined;
     if (this.list.length == 2) {
       let deleted = this.list.pop();
@@ -37,7 +30,7 @@ export class Heap<T> implements Heaps<T> {
     }
     let [first, deleted, ...rest] = this.list;
     let lastElem = rest.pop();
-    this.list = [first, lastElem, ...rest];
+    this.list = [first, lastElem!, ...rest];
     let i = 1;
     while (i < this.list.length - 1) {
       let leftIndex = 2 * i;
@@ -45,13 +38,13 @@ export class Heap<T> implements Heaps<T> {
       let index = i;
       if (
         leftIndex < this.list.length &&
-        this.comparator(this.list[leftIndex], this.list[i]) > 0
+        this.comparator(this.list[leftIndex]!, this.list[index]!) > 0
       ) {
         index = leftIndex;
       }
       if (
         rightIndex < this.list.length &&
-        this.comparator(this.list[rightIndex], this.list[i]) > 0
+        this.comparator(this.list[rightIndex]!, this.list[index]!) > 0
       ) {
         index = rightIndex;
       }
@@ -64,7 +57,7 @@ export class Heap<T> implements Heaps<T> {
     }
     return deleted;
   }
-  peek(): T | undefined {
+  peek(): T | undefined | null {
     return this.list.length == 1 ? undefined : this.list[1];
   }
   get size(): number {

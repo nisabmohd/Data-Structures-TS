@@ -1,10 +1,4 @@
-interface Stacks<T> {
-  push(val: T): void;
-  pop(): T | undefined;
-  readonly size: number;
-}
-
-export class Stack<T> implements Stacks<T> {
+export class Stack<T> {
   private arr: T[];
   constructor() {
     this.arr = [];
